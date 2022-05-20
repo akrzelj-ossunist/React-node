@@ -1,9 +1,11 @@
 Front-backend app
 
-Allows to add, list atributes, find elements
+Allows to add, delete, list object atributes, find objects
 
 Reads json file, sends json object to react in which we can list in this case all cats, add new cat
-that is passed trough POST method to node in where we save that new cat in existing json.
+that is passed trough POST method to node in where we save that new cat in existing json also we can
+delete any cat from json file with same method i take info from client side on which cat we wanna delete
+and send that info to server side(node) where we remove that cat from json object and than we save that in json.
 
 For this to run u will need:
 
