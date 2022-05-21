@@ -19,17 +19,17 @@ function App() {
 
     function CatsName(){
       return (
-        cats.map(el => <p key={el.key}>Cats name: {el.name}</p>)
+        cats.map(el => <p key={el.key}>ID: {el.key}... name: {el.name}</p>)
       )};
 
     function CatsAge(){
         return (
-          cats.map(el => <p key={el.key}>Cats age: {el.age}</p>)
+          cats.map(el => <p key={el.key}>ID: {el.key}... age: {el.age}</p>)
       )};
     
     function CatsColor(){
         return (
-          cats.map(el => <p key={el.key}>Cats color: {el.color}</p>)
+          cats.map(el => <p key={el.key}>ID: {el.key}... color: {el.color}</p>)
     )};
     
     const [nameToggle, addNameToggle] = useState(0)
@@ -54,6 +54,18 @@ function App() {
       ageToggle ? addAgeToggle(0) : addAgeToggle(0)   
     }
 
+    let buttonName;
+    let buttonAge;
+    let buttonColor;
+
+    if(nameToggle)
+      buttonName = <CatsName />
+    if(ageToggle)
+      buttonAge = <CatsAge />
+    if(colorToggle)
+      buttonColor = <CatsColor />
+
+    //This function to list all cats
     function Cats(){
       return (
         cats.map(el =>
@@ -65,35 +77,25 @@ function App() {
         </div>)
       )};
 
-      let buttonName;
-      let buttonAge;
-      let buttonColor;
-  
-      if(nameToggle)
-        buttonName = <CatsName />
-      if(ageToggle)
-        buttonAge = <CatsAge />
-      if(colorToggle)
-        buttonColor = <CatsColor />
-  
-      const [Cat, getCat] = useState(0)
+      //Got Cats id from textboxs and saved it in CatID
+      const [CatID, getCat] = useState(0)
   
       const PrintCat = () =>{
-        if(Cat > cats.length || Cat < 0)
-          return(<p>Wrong input...</p>)
-        else{
-          for(let i in cats){
-            if(i == Cat - 1){
-              return(
-                <div className="cats" key={cats[i].key}>
-                    <p>Cats name: {cats[i].name}</p>
-                    <p>Cats age: {cats[i].age}</p>
-                    <p>Cats color: {cats[i].color}</p><br></br>
-                </div>)
-            }
-          }   
-        }
+        const IDs = cats.map(el => el.key)
+        console.log(IDs)
+        const index = IDs.indexOf(+CatID)
+        console.log(index)
+        if(index >= 0)
+          return(
+            <div className="cats" key={cats[index].key}>
+                <p>Cats name: {cats[index].name}</p>
+                <p>Cats age: {cats[index].age}</p>
+                <p>Cats color: {cats[index].color}</p><br></br>
+            </div>)
+        else
+          return(<p>No cats with matching id...</p>) 
       }
+      //if submit button to show any cat is clicked PrintCat function is saved in catPrint
       let catPrint;
       const [cat, getCatPrint] = useState(0)
       const showCat = () => {
@@ -191,18 +193,30 @@ function App() {
           </form>    
       )
     }
+    const [listAll, listAllToggle] = useState(0)
 
+    const listAllToggler = () => {
+      listAll ? listAllToggle(0) : listAllToggle(1)
+    }
+    let listAllCats;
+    if(listAll)
+      listAllCats = <Cats />
   return (
     <div>
       Cats Stuff:<br></br>
       <button onClick={ageToggler}>Age</button>
       <button onClick={nameToggler}>Name</button>
-      <button onClick={colorToggler}>Color</button>
+      <button onClick={colorToggler}>Color</button><br></br><br></br>
       {buttonName}
       {buttonAge}
       {buttonColor}
-      <Cats />
-      <p>You have {cats.length} cats, pick cat you wanna find out about? </p><form style={displaySearch}><input onInput={e => getCat(e.target.value)} type='text'></input> <input onClick={showCat} value="Submit" type="button"></input></form>
+      <input onClick={listAllToggler} type='button' value='List all cats'></input>
+      {listAllCats}
+      <p>You have {cats.length} cats, pick cat you wanna find out about? </p>
+      <form style={displaySearch}>
+          <input onInput={e => getCat(e.target.value)} type='text'></input> 
+          <input onClick={showCat} value="Submit" type="button"></input>
+      </form>
       {catPrint}
       <input style={displayExit} onClick={showCat} type='button' value='exit'></input><br></br><br></br>
       <input onClick={toggleNewCatForm} type="button" value='Add New Cat'></input>
@@ -214,3 +228,4 @@ function App() {
 }
 
 export default App;
+
