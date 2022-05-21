@@ -15,16 +15,18 @@ For this to run u will need:
 2. node-modules for node(express.js)(in node file)
 	 -npm i express
 
-3. axios for POST request(in react file)
+3. nodemon for server automatically update(in node file)
+	 -npm i nodemon -D
+
+4. axios for POST request(in react file)
 	 -npm install axios
 
-4. cors to allow react to send data to node(in node file)
+5. cors to allow react to send data to node(in node file)
 	 -npm install cors
 
-5. To run node server
+6. To run node server
 	 -npm run dev
 
-6. To run react
+7. To run react
 	 -npm start
-
 
